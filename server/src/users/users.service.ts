@@ -153,16 +153,14 @@ export class UsersService {
     }
 
     const salt = bcrypt.genSaltSync(10);
-    // const code = String(
-    //   Math.floor(Math.pow(10, 6 - 1) + Math.random() * 9 * Math.pow(10, 6 - 1)),
-    // );
-    const code = '123';
+    const code = String(
+      Math.floor(Math.pow(10, 6 - 1) + Math.random() * 9 * Math.pow(10, 6 - 1)),
+    );
 
     // todo: Убрать потом
     console.log(code);
 
-    // user.code = bcrypt.hashSync(code, salt);
-    user.code = code;
+    user.code = bcrypt.hashSync(code, salt);
 
     await user.save();
 
