@@ -1,635 +1,610 @@
-import {gql} from '@apollo/client';
+import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
 const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-    ID: string;
-    String: string;
-    Boolean: boolean;
-    Int: number;
-    Float: number;
-    /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
-    DateTime: any;
-    /** The `Upload` scalar type represents a file upload. */
-    Upload: any;
+  ID: string;
+  String: string;
+  Boolean: boolean;
+  Int: number;
+  Float: number;
+  /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
+  DateTime: any;
+  /** The `Upload` scalar type represents a file upload. */
+  Upload: any;
 };
 
 export type AddDishCommentsInput = {
-    dish_id: Scalars['ID'];
-    message: Scalars['String'];
-    stars: Scalars['Int'];
+  dish_id: Scalars['ID'];
+  message: Scalars['String'];
+  stars: Scalars['Int'];
 };
 
 export type AddInstitutionElevation = {
-    evaluation: Scalars['Int'];
-    institution_id: Scalars['Int'];
+  evaluation: Scalars['Int'];
+  institution_id: Scalars['Int'];
 };
 
 export type ChangeOrderStatusInput = {
-    order_id: Scalars['ID'];
-    status?: InputMaybe<Status>;
+  order_id: Scalars['ID'];
+  status?: InputMaybe<Status>;
 };
 
 export type CommentsObject = {
-    __typename?: 'CommentsObject';
-    avarage_rating: Scalars['Int'];
-    count: Scalars['Int'];
-    rows: Array<DishRating>;
+  __typename?: 'CommentsObject';
+  avarage_rating: Scalars['Int'];
+  count: Scalars['Int'];
+  rows: Array<DishRating>;
 };
 
 export type CreateDishInput = {
-    composition: Scalars['String'];
-    filling_ids: Array<Scalars['Int']>;
-    image: Scalars['Upload'];
-    name: Scalars['String'];
-    price: Scalars['Float'];
-    tag_ids: Array<Scalars['Int']>;
+  composition: Scalars['String'];
+  filling_ids: Array<Scalars['Int']>;
+  image: Scalars['Upload'];
+  name: Scalars['String'];
+  price: Scalars['Float'];
+  tag_ids: Array<Scalars['Int']>;
 };
 
 /** Input for add extra address */
 export type CreateExtraAddressInput = {
-    latitude: Scalars['String'];
-    longitude: Scalars['String'];
+  latitude: Scalars['String'];
+  longitude: Scalars['String'];
 };
 
 export type CreateFillingInput = {
-    image: Scalars['Upload'];
-    name: Scalars['String'];
-    price: Scalars['Float'];
-    weight: Scalars['Float'];
+  image: Scalars['Upload'];
+  name: Scalars['String'];
+  price: Scalars['Float'];
+  weight: Scalars['Float'];
 };
 
 export type CreateInstitutionsInput = {
-    address: Scalars['String'];
-    free_delivery: Scalars['Float'];
-    image: Scalars['Upload'];
-    name: Scalars['String'];
-    pay_methods: Array<PayMethod>;
-    shipping_cost: Scalars['Float'];
-    /** Tags ids */
-    tags: Array<Scalars['ID']>;
-    work_days: Array<Day>;
-    work_from: Scalars['String'];
-    work_to: Scalars['String'];
+  address: Scalars['String'];
+  free_delivery: Scalars['Float'];
+  image: Scalars['Upload'];
+  name: Scalars['String'];
+  pay_methods: Array<PayMethod>;
+  shipping_cost: Scalars['Float'];
+  /** Tags ids */
+  tags: Array<Scalars['ID']>;
+  work_days: Array<Day>;
+  work_from: Scalars['String'];
+  work_to: Scalars['String'];
 };
 
 export type CreateOrderInput = {
-    latitude: Scalars['String'];
-    longitude: Scalars['String'];
-    orders: Array<Order>;
-    pay_method: InstitutionOrderPayMethods;
+  latitude: Scalars['String'];
+  longitude: Scalars['String'];
+  orders: Array<Order>;
+  pay_method: InstitutionOrderPayMethods;
 };
 
 export type CreateTagInput = {
-    name: Scalars['String'];
+  name: Scalars['String'];
 };
 
 /** work day */
 export enum Day {
-    Friday = 'FRIDAY',
-    Monday = 'MONDAY',
-    Saturday = 'SATURDAY',
-    Sunday = 'SUNDAY',
-    Thursday = 'THURSDAY',
-    Tuesday = 'TUESDAY',
-    Wednesday = 'WEDNESDAY'
+  Friday = 'FRIDAY',
+  Monday = 'MONDAY',
+  Saturday = 'SATURDAY',
+  Sunday = 'SUNDAY',
+  Thursday = 'THURSDAY',
+  Tuesday = 'TUESDAY',
+  Wednesday = 'WEDNESDAY',
 }
 
 export type Dish = {
-    __typename?: 'Dish';
-    composition: Scalars['String'];
-    dish_orders: Array<DishOrder>;
-    fillings: Array<Filling>;
-    id: Scalars['ID'];
-    image: Scalars['String'];
-    institution: Institution;
-    name: Scalars['String'];
-    price: Scalars['Float'];
-    stock_price?: Maybe<Scalars['Float']>;
-    stock_time?: Maybe<Scalars['DateTime']>;
-    tags: Array<Tag>;
+  __typename?: 'Dish';
+  composition: Scalars['String'];
+  dish_orders: Array<DishOrder>;
+  fillings: Array<Filling>;
+  id: Scalars['ID'];
+  image: Scalars['String'];
+  institution: Institution;
+  name: Scalars['String'];
+  price: Scalars['Float'];
+  stock_price?: Maybe<Scalars['Float']>;
+  stock_time?: Maybe<Scalars['DateTime']>;
+  tags: Array<Tag>;
 };
 
 export type DishOrder = {
-    __typename?: 'DishOrder';
-    fillings: Array<Filling>;
-    id: Scalars['ID'];
-    price: Scalars['Int'];
-    quality: Scalars['Int'];
+  __typename?: 'DishOrder';
+  fillings: Array<Filling>;
+  id: Scalars['ID'];
+  price: Scalars['Int'];
+  quality: Scalars['Int'];
 };
 
 export type DishRating = {
-    __typename?: 'DishRating';
-    id: Scalars['ID'];
-    message: Scalars['String'];
-    stars: Scalars['Int'];
-    user: User;
+  __typename?: 'DishRating';
+  id: Scalars['ID'];
+  message: Scalars['String'];
+  stars: Scalars['Int'];
+  user: User;
 };
 
 export type DishesObject = {
-    __typename?: 'DishesObject';
-    count: Scalars['Int'];
-    rows: Array<Dish>;
+  __typename?: 'DishesObject';
+  count: Scalars['Int'];
+  rows: Array<Dish>;
 };
 
 export type Filling = {
-    __typename?: 'Filling';
-    dishes: Array<Dish>;
-    id: Scalars['ID'];
-    image: Scalars['String'];
-    name: Scalars['String'];
-    price: Scalars['Float'];
-    weight: Scalars['Float'];
+  __typename?: 'Filling';
+  dishes: Array<Dish>;
+  id: Scalars['ID'];
+  image: Scalars['String'];
+  name: Scalars['String'];
+  price: Scalars['Float'];
+  weight: Scalars['Float'];
 };
 
 export type GetDishCommentsInput = {
-    dish_id: Scalars['ID'];
-    limit?: InputMaybe<Scalars['Int']>;
-    offset?: InputMaybe<Scalars['Int']>;
+  dish_id: Scalars['ID'];
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
 };
 
 export type GetDishesInput = {
-    limit?: InputMaybe<Scalars['Int']>;
-    offset?: InputMaybe<Scalars['Int']>;
-    search?: InputMaybe<Scalars['String']>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  search?: InputMaybe<Scalars['String']>;
 };
 
 export type GetFillingsInput = {
-    id: Scalars['ID'];
-    limit?: InputMaybe<Scalars['Float']>;
-    offset?: InputMaybe<Scalars['Float']>;
+  id: Scalars['ID'];
+  limit?: InputMaybe<Scalars['Float']>;
+  offset?: InputMaybe<Scalars['Float']>;
 };
 
 export type GetInstitutionsInput = {
-    limit?: InputMaybe<Scalars['Int']>;
-    offset?: InputMaybe<Scalars['Int']>;
-    search?: InputMaybe<Scalars['String']>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  search?: InputMaybe<Scalars['String']>;
 };
 
 export type GetOrdersInput = {
-    limit?: InputMaybe<Scalars['Int']>;
-    offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
 };
 
 export type Institution = {
-    __typename?: 'Institution';
-    address: Scalars['String'];
-    dishes?: Maybe<Array<Dish>>;
-    extra_addresses?: Maybe<Array<InstitutionExtraAddress>>;
-    fillings: Array<Filling>;
-    free_delivery: Scalars['Int'];
-    id: Scalars['ID'];
-    image: Scalars['String'];
-    name: Scalars['String'];
-    pay_methods?: Maybe<Array<InstitutionPayMethod>>;
-    shipping_cost: Scalars['Int'];
-    tags: Array<Tag>;
-    work_days?: Maybe<Array<WorkDay>>;
-    work_from: Scalars['String'];
-    work_to: Scalars['String'];
+  __typename?: 'Institution';
+  address: Scalars['String'];
+  dishes?: Maybe<Array<Dish>>;
+  extra_addresses?: Maybe<Array<InstitutionExtraAddress>>;
+  fillings: Array<Filling>;
+  free_delivery: Scalars['Int'];
+  id: Scalars['ID'];
+  image: Scalars['String'];
+  name: Scalars['String'];
+  pay_methods?: Maybe<Array<InstitutionPayMethod>>;
+  shipping_cost: Scalars['Int'];
+  tags: Array<Tag>;
+  work_days?: Maybe<Array<WorkDay>>;
+  work_from: Scalars['String'];
+  work_to: Scalars['String'];
 };
 
 export type InstitutionExtraAddress = {
-    __typename?: 'InstitutionExtraAddress';
-    id: Scalars['ID'];
-    latitude: Scalars['String'];
-    longitude: Scalars['String'];
+  __typename?: 'InstitutionExtraAddress';
+  id: Scalars['ID'];
+  latitude: Scalars['String'];
+  longitude: Scalars['String'];
 };
 
 export type InstitutionOrder = {
-    __typename?: 'InstitutionOrder';
-    delivery: Scalars['Int'];
-    dish_orders: Array<DishOrder>;
-    id: Scalars['ID'];
-    institution_id: Scalars['ID'];
-    latitude: Scalars['String'];
-    longitude: Scalars['String'];
-    messages: Message;
-    pay_method: InstitutionOrderPayMethods;
-    rating: Scalars['Int'];
-    status: Status;
-    user: User;
+  __typename?: 'InstitutionOrder';
+  delivery: Scalars['Int'];
+  dish_orders: Array<DishOrder>;
+  id: Scalars['ID'];
+  institution_id: Scalars['ID'];
+  latitude: Scalars['String'];
+  longitude: Scalars['String'];
+  messages: Message;
+  pay_method: InstitutionOrderPayMethods;
+  rating: Scalars['Int'];
+  status: Status;
+  user: User;
 };
 
 export enum InstitutionOrderPayMethods {
-    Cache = 'CACHE',
-    Card = 'CARD',
-    Online = 'ONLINE'
+  Cache = 'CACHE',
+  Card = 'CARD',
+  Online = 'ONLINE',
 }
 
 export type InstitutionPayMethod = {
-    __typename?: 'InstitutionPayMethod';
-    method: PayMethod;
+  __typename?: 'InstitutionPayMethod';
+  method: PayMethod;
 };
 
 export type InstitutionsObject = {
-    __typename?: 'InstitutionsObject';
-    count: Scalars['Int'];
-    rows: Array<Institution>;
+  __typename?: 'InstitutionsObject';
+  count: Scalars['Int'];
+  rows: Array<Institution>;
 };
 
 export type LoginInput = {
-    code: Scalars['Float'];
-    is_partner: Scalars['Boolean'];
-    phone: Scalars['String'];
+  code: Scalars['Float'];
+  is_partner: Scalars['Boolean'];
+  phone: Scalars['String'];
 };
 
 export type Message = {
-    __typename?: 'Message';
-    createdAt: Scalars['DateTime'];
-    id: Scalars['ID'];
-    message: Scalars['String'];
-    order_id: Scalars['ID'];
-    user: User;
+  __typename?: 'Message';
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ID'];
+  message: Scalars['String'];
+  order_id: Scalars['ID'];
+  user: User;
 };
 
 export type Mutation = {
-    __typename?: 'Mutation';
-    addDishComment: DishRating;
-    addDishToFavorite: Scalars['Boolean'];
-    addInstitutionElevation: Scalars['Boolean'];
-    addInstitutionExtraAddress: InstitutionExtraAddress;
-    addInstitutionToFavorite: Scalars['Boolean'];
-    addUserExtraAddress: UserExtraAddress;
-    changeOrderStatus: Scalars['Boolean'];
-    createDish: Dish;
-    createInstitution: Institution;
-    createInstitutionFillings: Filling;
-    createOrder: Scalars['Boolean'];
-    createTag: Tag;
-    removeDish: Dish;
-    removeDishFromFavorite: Scalars['Boolean'];
-    removeInstitution: Scalars['Boolean'];
-    removeInstitutionExtraAddress: InstitutionExtraAddress;
-    removeInstitutionFilling: Scalars['Boolean'];
-    removeInstitutionFromFavorite: Scalars['Boolean'];
-    removeUserExtraAddress: UserExtraAddress;
-    sendCode: Scalars['Boolean'];
-    sendMessage: Message;
-    updateDish: Dish;
-    updateInstitution: Institution;
-    updateInstitutionExtraAddress: InstitutionExtraAddress;
-    updateUser: User;
-    updateUserExtraAddress: UserExtraAddress;
+  __typename?: 'Mutation';
+  addDishComment: DishRating;
+  addDishToFavorite: Scalars['Boolean'];
+  addInstitutionElevation: Scalars['Boolean'];
+  addInstitutionExtraAddress: InstitutionExtraAddress;
+  addInstitutionToFavorite: Scalars['Boolean'];
+  addUserExtraAddress: UserExtraAddress;
+  changeOrderStatus: Scalars['Boolean'];
+  createDish: Dish;
+  createInstitution: Institution;
+  createInstitutionFillings: Filling;
+  createOrder: Scalars['Boolean'];
+  createTag: Tag;
+  removeDish: Dish;
+  removeDishFromFavorite: Scalars['Boolean'];
+  removeInstitution: Scalars['Boolean'];
+  removeInstitutionExtraAddress: InstitutionExtraAddress;
+  removeInstitutionFilling: Scalars['Boolean'];
+  removeInstitutionFromFavorite: Scalars['Boolean'];
+  removeUserExtraAddress: UserExtraAddress;
+  sendCode: Scalars['Boolean'];
+  sendMessage: Message;
+  updateDish: Dish;
+  updateInstitution: Institution;
+  updateInstitutionExtraAddress: InstitutionExtraAddress;
+  updateUser: User;
+  updateUserExtraAddress: UserExtraAddress;
 };
-
 
 export type MutationAddDishCommentArgs = {
-    data: AddDishCommentsInput;
+  data: AddDishCommentsInput;
 };
-
 
 export type MutationAddDishToFavoriteArgs = {
-    dish_id: Scalars['ID'];
+  dish_id: Scalars['ID'];
 };
-
 
 export type MutationAddInstitutionElevationArgs = {
-    data: AddInstitutionElevation;
+  data: AddInstitutionElevation;
 };
-
 
 export type MutationAddInstitutionExtraAddressArgs = {
-    data: CreateExtraAddressInput;
+  data: CreateExtraAddressInput;
 };
-
 
 export type MutationAddInstitutionToFavoriteArgs = {
-    institution_id: Scalars['ID'];
+  institution_id: Scalars['ID'];
 };
-
 
 export type MutationAddUserExtraAddressArgs = {
-    data: CreateExtraAddressInput;
+  data: CreateExtraAddressInput;
 };
-
 
 export type MutationChangeOrderStatusArgs = {
-    data: ChangeOrderStatusInput;
+  data: ChangeOrderStatusInput;
 };
-
 
 export type MutationCreateDishArgs = {
-    data: CreateDishInput;
+  data: CreateDishInput;
 };
-
 
 export type MutationCreateInstitutionArgs = {
-    data: CreateInstitutionsInput;
+  data: CreateInstitutionsInput;
 };
-
 
 export type MutationCreateInstitutionFillingsArgs = {
-    data: CreateFillingInput;
+  data: CreateFillingInput;
 };
-
 
 export type MutationCreateOrderArgs = {
-    data: CreateOrderInput;
+  data: CreateOrderInput;
 };
-
 
 export type MutationCreateTagArgs = {
-    data: CreateTagInput;
+  data: CreateTagInput;
 };
-
 
 export type MutationRemoveDishArgs = {
-    id: Scalars['ID'];
+  id: Scalars['ID'];
 };
-
 
 export type MutationRemoveDishFromFavoriteArgs = {
-    dish_id: Scalars['ID'];
+  dish_id: Scalars['ID'];
 };
-
 
 export type MutationRemoveInstitutionExtraAddressArgs = {
-    id: Scalars['ID'];
+  id: Scalars['ID'];
 };
-
 
 export type MutationRemoveInstitutionFillingArgs = {
-    id: Scalars['ID'];
+  id: Scalars['ID'];
 };
-
 
 export type MutationRemoveInstitutionFromFavoriteArgs = {
-    institution_id: Scalars['ID'];
+  institution_id: Scalars['ID'];
 };
-
 
 export type MutationRemoveUserExtraAddressArgs = {
-    id: Scalars['ID'];
+  id: Scalars['ID'];
 };
-
 
 export type MutationSendCodeArgs = {
-    data: SendCodeInput;
+  data: SendCodeInput;
 };
-
 
 export type MutationSendMessageArgs = {
-    data: SendMessageInput;
+  data: SendMessageInput;
 };
-
 
 export type MutationUpdateDishArgs = {
-    data: UpdateDishInput;
+  data: UpdateDishInput;
 };
-
 
 export type MutationUpdateInstitutionArgs = {
-    data: UpdateInstitutionsInput;
+  data: UpdateInstitutionsInput;
 };
-
 
 export type MutationUpdateInstitutionExtraAddressArgs = {
-    data: UpdateExtraAddressInput;
+  data: UpdateExtraAddressInput;
 };
-
 
 export type MutationUpdateUserArgs = {
-    data: UpdateUserInput;
+  data: UpdateUserInput;
 };
 
-
 export type MutationUpdateUserExtraAddressArgs = {
-    data: UpdateExtraAddressInput;
+  data: UpdateExtraAddressInput;
 };
 
 export type Order = {
-    dish_id: Scalars['Int'];
-    filling_ids: Array<Scalars['Int']>;
-    quality: Scalars['Int'];
+  dish_id: Scalars['Int'];
+  filling_ids: Array<Scalars['Int']>;
+  quality: Scalars['Int'];
 };
 
 /** pay methods */
 export enum PayMethod {
-    All = 'ALL',
-    Cache = 'CACHE',
-    Card = 'CARD',
-    Online = 'ONLINE'
+  All = 'ALL',
+  Cache = 'CACHE',
+  Card = 'CARD',
+  Online = 'ONLINE',
 }
 
 export type Query = {
-    __typename?: 'Query';
-    getCurrentUser: User;
-    getDish: Dish;
-    getDishComments: CommentsObject;
-    getDishes: DishesObject;
-    getFavoriteDishes: Array<Dish>;
-    getFavoriteInstitutions: Array<Institution>;
-    getInstitution: Institution;
-    getInstitutionById: Institution;
-    getInstitutionFillings: Array<Filling>;
-    getInstitutions: InstitutionsObject;
-    getOrderDialog?: Maybe<Array<Message>>;
-    getOrders: Array<InstitutionOrder>;
-    getTags: Array<Tag>;
-    login: Token;
+  __typename?: 'Query';
+  getCurrentUser: User;
+  getDish: Dish;
+  getDishComments: CommentsObject;
+  getDishes: DishesObject;
+  getFavoriteDishes: Array<Dish>;
+  getFavoriteInstitutions: Array<Institution>;
+  getInstitution: Institution;
+  getInstitutionById: Institution;
+  getInstitutionFillings: Array<Filling>;
+  getInstitutions: InstitutionsObject;
+  getOrderDialog?: Maybe<Array<Message>>;
+  getOrders: Array<InstitutionOrder>;
+  getTags: Array<Tag>;
+  login: Token;
 };
-
 
 export type QueryGetDishArgs = {
-    id: Scalars['ID'];
+  id: Scalars['ID'];
 };
-
 
 export type QueryGetDishCommentsArgs = {
-    data: GetDishCommentsInput;
+  data: GetDishCommentsInput;
 };
-
 
 export type QueryGetDishesArgs = {
-    data: GetDishesInput;
+  data: GetDishesInput;
 };
-
 
 export type QueryGetInstitutionByIdArgs = {
-    id: Scalars['ID'];
+  id: Scalars['ID'];
 };
-
 
 export type QueryGetInstitutionFillingsArgs = {
-    data: GetFillingsInput;
+  data: GetFillingsInput;
 };
-
 
 export type QueryGetInstitutionsArgs = {
-    data: GetInstitutionsInput;
+  data: GetInstitutionsInput;
 };
-
 
 export type QueryGetOrderDialogArgs = {
-    id: Scalars['ID'];
+  id: Scalars['ID'];
 };
-
 
 export type QueryGetOrdersArgs = {
-    data: GetOrdersInput;
+  data: GetOrdersInput;
 };
 
-
 export type QueryLoginArgs = {
-    data: LoginInput;
+  data: LoginInput;
 };
 
 export type SendCodeInput = {
-    is_partner?: InputMaybe<Scalars['Boolean']>;
-    phone: Scalars['String'];
+  is_partner?: InputMaybe<Scalars['Boolean']>;
+  phone: Scalars['String'];
 };
 
 export type SendMessageInput = {
-    message: Scalars['String'];
-    order_id: Scalars['ID'];
+  message: Scalars['String'];
+  order_id: Scalars['ID'];
 };
 
 export enum Status {
-    Accepted = 'ACCEPTED',
-    Canceled = 'CANCELED',
-    Completed = 'COMPLETED',
-    Cooking = 'COOKING',
-    InRoad = 'IN_ROAD',
-    New = 'NEW'
+  Accepted = 'ACCEPTED',
+  Canceled = 'CANCELED',
+  Completed = 'COMPLETED',
+  Cooking = 'COOKING',
+  InRoad = 'IN_ROAD',
+  New = 'NEW',
 }
 
 export enum StockTime {
-    OneDay = 'ONE_DAY',
-    OneMouth = 'ONE_MOUTH',
-    OneWeek = 'ONE_WEEK',
-    TwoWeeks = 'TWO_WEEKS'
+  OneDay = 'ONE_DAY',
+  OneMouth = 'ONE_MOUTH',
+  OneWeek = 'ONE_WEEK',
+  TwoWeeks = 'TWO_WEEKS',
 }
 
 export type Subscription = {
-    __typename?: 'Subscription';
-    messageSent: Message;
+  __typename?: 'Subscription';
+  messageSent: Message;
 };
 
 export type Tag = {
-    __typename?: 'Tag';
-    id: Scalars['ID'];
-    name: Scalars['String'];
+  __typename?: 'Tag';
+  id: Scalars['ID'];
+  name: Scalars['String'];
 };
 
 export type Token = {
-    __typename?: 'Token';
-    access_token: Scalars['String'];
+  __typename?: 'Token';
+  access_token: Scalars['String'];
 };
 
 export type UpdateDishInput = {
-    composition?: InputMaybe<Scalars['String']>;
-    filling_ids?: InputMaybe<Array<Scalars['Int']>>;
-    id: Scalars['ID'];
-    image?: InputMaybe<Scalars['Upload']>;
-    name?: InputMaybe<Scalars['String']>;
-    price?: InputMaybe<Scalars['Float']>;
-    stock_price?: InputMaybe<Scalars['Float']>;
-    stock_time?: InputMaybe<StockTime>;
-    tag_ids?: InputMaybe<Array<Scalars['Int']>>;
+  composition?: InputMaybe<Scalars['String']>;
+  filling_ids?: InputMaybe<Array<Scalars['Int']>>;
+  id: Scalars['ID'];
+  image?: InputMaybe<Scalars['Upload']>;
+  name?: InputMaybe<Scalars['String']>;
+  price?: InputMaybe<Scalars['Float']>;
+  stock_price?: InputMaybe<Scalars['Float']>;
+  stock_time?: InputMaybe<StockTime>;
+  tag_ids?: InputMaybe<Array<Scalars['Int']>>;
 };
 
 /** Input for add extra address */
 export type UpdateExtraAddressInput = {
-    id: Scalars['ID'];
-    latitude: Scalars['String'];
-    longitude: Scalars['String'];
+  id: Scalars['ID'];
+  latitude: Scalars['String'];
+  longitude: Scalars['String'];
 };
 
 export type UpdateInstitutionsInput = {
-    address?: InputMaybe<Scalars['String']>;
-    free_delivery?: InputMaybe<Scalars['Float']>;
-    image?: InputMaybe<Scalars['Upload']>;
-    name?: InputMaybe<Scalars['String']>;
-    pay_methods?: InputMaybe<Array<PayMethod>>;
-    shipping_cost?: InputMaybe<Scalars['Float']>;
-    /** Tags ids */
-    tags?: InputMaybe<Array<Scalars['Int']>>;
-    work_days?: InputMaybe<Array<Day>>;
-    work_from?: InputMaybe<Scalars['String']>;
-    work_to?: InputMaybe<Scalars['String']>;
+  address?: InputMaybe<Scalars['String']>;
+  free_delivery?: InputMaybe<Scalars['Float']>;
+  image?: InputMaybe<Scalars['Upload']>;
+  name?: InputMaybe<Scalars['String']>;
+  pay_methods?: InputMaybe<Array<PayMethod>>;
+  shipping_cost?: InputMaybe<Scalars['Float']>;
+  /** Tags ids */
+  tags?: InputMaybe<Array<Scalars['Int']>>;
+  work_days?: InputMaybe<Array<Day>>;
+  work_from?: InputMaybe<Scalars['String']>;
+  work_to?: InputMaybe<Scalars['String']>;
 };
 
 /** Input for update user */
 export type UpdateUserInput = {
-    image?: InputMaybe<Scalars['Upload']>;
-    name?: InputMaybe<Scalars['String']>;
-    notification?: InputMaybe<Scalars['Boolean']>;
-    pay_methods?: InputMaybe<Array<UserPayMethod>>;
-    position?: InputMaybe<Scalars['Boolean']>;
+  image?: InputMaybe<Scalars['Upload']>;
+  name?: InputMaybe<Scalars['String']>;
+  notification?: InputMaybe<Scalars['Boolean']>;
+  pay_methods?: InputMaybe<Array<UserPayMethod>>;
+  position?: InputMaybe<Scalars['Boolean']>;
 };
 
 export type User = {
-    __typename?: 'User';
-    extra_addresses?: Maybe<Array<UserExtraAddress>>;
-    id: Scalars['ID'];
-    image: Scalars['String'];
-    institution: Institution;
-    is_new: Scalars['Boolean'];
-    name: Scalars['String'];
-    notification: Scalars['Boolean'];
-    orders: Array<InstitutionOrder>;
-    pay_methods: Array<UserPay>;
-    phone_number: Scalars['Int'];
-    position: Scalars['Boolean'];
+  __typename?: 'User';
+  extra_addresses?: Maybe<Array<UserExtraAddress>>;
+  id: Scalars['ID'];
+  image: Scalars['String'];
+  institution: Institution;
+  is_new: Scalars['Boolean'];
+  name: Scalars['String'];
+  notification: Scalars['Boolean'];
+  orders: Array<InstitutionOrder>;
+  pay_methods: Array<UserPay>;
+  phone_number: Scalars['Int'];
+  position: Scalars['Boolean'];
 };
 
 export type UserExtraAddress = {
-    __typename?: 'UserExtraAddress';
-    id: Scalars['ID'];
-    latitude: Scalars['String'];
-    longitude: Scalars['String'];
+  __typename?: 'UserExtraAddress';
+  id: Scalars['ID'];
+  latitude: Scalars['String'];
+  longitude: Scalars['String'];
 };
 
 export type UserPay = {
-    __typename?: 'UserPay';
-    method: UserPayMethod;
+  __typename?: 'UserPay';
+  method: UserPayMethod;
 };
 
 /** pay methods */
 export enum UserPayMethod {
-    Cache = 'CACHE',
-    Card = 'CARD',
-    Online = 'ONLINE'
+  Cache = 'CACHE',
+  Card = 'CARD',
+  Online = 'ONLINE',
 }
 
 export type WorkDay = {
-    __typename?: 'WorkDay';
-    day: Day;
+  __typename?: 'WorkDay';
+  day: Day;
 };
 
 export type SendCodeMutationVariables = Exact<{
-    data: SendCodeInput;
+  data: SendCodeInput;
 }>;
 
+export type SendCodeMutation = { __typename?: 'Mutation'; sendCode: boolean };
 
-export type SendCodeMutation = { __typename?: 'Mutation', sendCode: boolean };
+export type GetCurrentUserQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetCurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetCurrentUserQuery = { __typename?: 'Query', getCurrentUser: { __typename?: 'User', id: string } };
+export type GetCurrentUserQuery = {
+  __typename?: 'Query';
+  getCurrentUser: { __typename?: 'User'; id: string };
+};
 
 export type LoginQueryVariables = Exact<{
-    data: LoginInput;
+  data: LoginInput;
 }>;
 
-
-export type LoginQuery = { __typename?: 'Query', login: { __typename?: 'Token', access_token: string } };
-
+export type LoginQuery = {
+  __typename?: 'Query';
+  login: { __typename?: 'Token'; access_token: string };
+};
 
 export const SendCodeDocument = gql`
-    mutation sendCode($data: SendCodeInput!) {
-        sendCode(data: $data)
-    }
+  mutation sendCode($data: SendCodeInput!) {
+    sendCode(data: $data)
+  }
 `;
-export type SendCodeMutationFn = Apollo.MutationFunction<SendCodeMutation, SendCodeMutationVariables>;
+export type SendCodeMutationFn = Apollo.MutationFunction<
+  SendCodeMutation,
+  SendCodeMutationVariables
+>;
 
 /**
  * __useSendCodeMutation__
@@ -648,20 +623,28 @@ export type SendCodeMutationFn = Apollo.MutationFunction<SendCodeMutation, SendC
  *   },
  * });
  */
-export function useSendCodeMutation(baseOptions?: Apollo.MutationHookOptions<SendCodeMutation, SendCodeMutationVariables>) {
-    const options = {...defaultOptions, ...baseOptions}
-    return Apollo.useMutation<SendCodeMutation, SendCodeMutationVariables>(SendCodeDocument, options);
+export function useSendCodeMutation(
+  baseOptions?: Apollo.MutationHookOptions<SendCodeMutation, SendCodeMutationVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<SendCodeMutation, SendCodeMutationVariables>(
+    SendCodeDocument,
+    options,
+  );
 }
 
 export type SendCodeMutationHookResult = ReturnType<typeof useSendCodeMutation>;
 export type SendCodeMutationResult = Apollo.MutationResult<SendCodeMutation>;
-export type SendCodeMutationOptions = Apollo.BaseMutationOptions<SendCodeMutation, SendCodeMutationVariables>;
+export type SendCodeMutationOptions = Apollo.BaseMutationOptions<
+  SendCodeMutation,
+  SendCodeMutationVariables
+>;
 export const GetCurrentUserDocument = gql`
-    query getCurrentUser {
-        getCurrentUser {
-            id
-        }
+  query getCurrentUser {
+    getCurrentUser {
+      id
     }
+  }
 `;
 
 /**
@@ -679,25 +662,46 @@ export const GetCurrentUserDocument = gql`
  *   },
  * });
  */
-export function useGetCurrentUserQuery(baseOptions?: Apollo.QueryHookOptions<GetCurrentUserQuery, GetCurrentUserQueryVariables>) {
-    const options = {...defaultOptions, ...baseOptions}
-    return Apollo.useQuery<GetCurrentUserQuery, GetCurrentUserQueryVariables>(GetCurrentUserDocument, options);
+export function useGetCurrentUserQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetCurrentUserQuery,
+    GetCurrentUserQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetCurrentUserQuery, GetCurrentUserQueryVariables>(
+    GetCurrentUserDocument,
+    options,
+  );
 }
 
-export function useGetCurrentUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCurrentUserQuery, GetCurrentUserQueryVariables>) {
-    const options = {...defaultOptions, ...baseOptions}
-    return Apollo.useLazyQuery<GetCurrentUserQuery, GetCurrentUserQueryVariables>(GetCurrentUserDocument, options);
+export function useGetCurrentUserLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetCurrentUserQuery,
+    GetCurrentUserQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetCurrentUserQuery, GetCurrentUserQueryVariables>(
+    GetCurrentUserDocument,
+    options,
+  );
 }
 
 export type GetCurrentUserQueryHookResult = ReturnType<typeof useGetCurrentUserQuery>;
-export type GetCurrentUserLazyQueryHookResult = ReturnType<typeof useGetCurrentUserLazyQuery>;
-export type GetCurrentUserQueryResult = Apollo.QueryResult<GetCurrentUserQuery, GetCurrentUserQueryVariables>;
+export type GetCurrentUserLazyQueryHookResult = ReturnType<
+  typeof useGetCurrentUserLazyQuery
+>;
+export type GetCurrentUserQueryResult = Apollo.QueryResult<
+  GetCurrentUserQuery,
+  GetCurrentUserQueryVariables
+>;
 export const LoginDocument = gql`
-    query login($data: LoginInput!) {
-        login(data: $data) {
-            access_token
-        }
+  query login($data: LoginInput!) {
+    login(data: $data) {
+      access_token
     }
+  }
 `;
 
 /**
@@ -716,14 +720,18 @@ export const LoginDocument = gql`
  *   },
  * });
  */
-export function useLoginQuery(baseOptions: Apollo.QueryHookOptions<LoginQuery, LoginQueryVariables>) {
-    const options = {...defaultOptions, ...baseOptions}
-    return Apollo.useQuery<LoginQuery, LoginQueryVariables>(LoginDocument, options);
+export function useLoginQuery(
+  baseOptions: Apollo.QueryHookOptions<LoginQuery, LoginQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<LoginQuery, LoginQueryVariables>(LoginDocument, options);
 }
 
-export function useLoginLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<LoginQuery, LoginQueryVariables>) {
-    const options = {...defaultOptions, ...baseOptions}
-    return Apollo.useLazyQuery<LoginQuery, LoginQueryVariables>(LoginDocument, options);
+export function useLoginLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<LoginQuery, LoginQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<LoginQuery, LoginQueryVariables>(LoginDocument, options);
 }
 
 export type LoginQueryHookResult = ReturnType<typeof useLoginQuery>;

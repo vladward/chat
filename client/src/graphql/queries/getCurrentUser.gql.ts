@@ -1,9 +1,9 @@
-import {gql} from "@apollo/client";
+import { gql } from '@apollo/client';
 
 export const GET_CURRENT_USER = gql`
-    query getCurrentUser {
-        getCurrentUser {
-            id
-        }
+  query getCurrentUser {
+    getCurrentUser {
+      id
     }
-`
+  }
+`;
