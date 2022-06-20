@@ -215,7 +215,7 @@ export class OrdersService {
     );
 
     if (!user.is_partner) {
-      return new ForbiddenException('User can not change order status');
+      return new ForbiddenException('userPage can not change order status');
     }
     const order = await this.institutionOrderModel.findByPk(data.order_id);
 

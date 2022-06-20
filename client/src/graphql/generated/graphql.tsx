@@ -56,7 +56,7 @@ export type CreateDishInput = {
   tag_ids: Array<Scalars['Int']>;
 };
 
-/** Input for add extra address */
+/** input for add extra address */
 export type CreateExtraAddressInput = {
   latitude: Scalars['String'];
   longitude: Scalars['String'];
@@ -505,7 +505,7 @@ export type UpdateDishInput = {
   tag_ids?: InputMaybe<Array<Scalars['Int']>>;
 };
 
-/** Input for add extra address */
+/** input for add extra address */
 export type UpdateExtraAddressInput = {
   id: Scalars['ID'];
   latitude: Scalars['String'];
@@ -526,7 +526,7 @@ export type UpdateInstitutionsInput = {
   work_to?: InputMaybe<Scalars['String']>;
 };
 
-/** Input for update user */
+/** input for update user */
 export type UpdateUserInput = {
   image?: InputMaybe<Scalars['Upload']>;
   name?: InputMaybe<Scalars['String']>;
@@ -580,11 +580,77 @@ export type SendCodeMutationVariables = Exact<{
 
 export type SendCodeMutation = { __typename?: 'Mutation'; sendCode: boolean };
 
+export type SendMessageMutationVariables = Exact<{
+  data: SendMessageInput;
+}>;
+
+export type SendMessageMutation = {
+  __typename?: 'Mutation';
+  sendMessage: {
+    __typename?: 'Message';
+    id: string;
+    order_id: string;
+    createdAt: any;
+    message: string;
+  };
+};
+
+export type UpdateUserMutationVariables = Exact<{
+  data: UpdateUserInput;
+}>;
+
+export type UpdateUserMutation = {
+  __typename?: 'Mutation';
+  updateUser: { __typename?: 'User'; id: string; phone_number: number; name: string };
+};
+
 export type GetCurrentUserQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetCurrentUserQuery = {
   __typename?: 'Query';
-  getCurrentUser: { __typename?: 'User'; id: string };
+  getCurrentUser: {
+    __typename?: 'User';
+    id: string;
+    phone_number: number;
+    name: string;
+    image: string;
+    notification: boolean;
+    position: boolean;
+    is_new: boolean;
+    orders: Array<{
+      __typename?: 'InstitutionOrder';
+      id: string;
+      institution_id: string;
+      status: Status;
+      rating: number;
+      delivery: number;
+      latitude: string;
+      longitude: string;
+    }>;
+    pay_methods: Array<{ __typename?: 'UserPay'; method: UserPayMethod }>;
+    institution: {
+      __typename?: 'Institution';
+      id: string;
+      name: string;
+      work_from: string;
+      work_to: string;
+      address: string;
+      free_delivery: number;
+      dishes?: Array<{
+        __typename?: 'Dish';
+        id: string;
+        name: string;
+        price: number;
+      }> | null;
+      fillings: Array<{
+        __typename?: 'Filling';
+        id: string;
+        name: string;
+        price: number;
+        weight: number;
+      }>;
+    };
+  };
 };
 
 export type LoginQueryVariables = Exact<{
@@ -594,6 +660,13 @@ export type LoginQueryVariables = Exact<{
 export type LoginQuery = {
   __typename?: 'Query';
   login: { __typename?: 'Token'; access_token: string };
+};
+
+export type MessageSentSubscriptionVariables = Exact<{ [key: string]: never }>;
+
+export type MessageSentSubscription = {
+  __typename?: 'Subscription';
+  messageSent: { __typename?: 'Message'; id: string; message: string; order_id: string };
 };
 
 export const SendCodeDocument = gql`
@@ -632,17 +705,152 @@ export function useSendCodeMutation(
     options,
   );
 }
-
 export type SendCodeMutationHookResult = ReturnType<typeof useSendCodeMutation>;
 export type SendCodeMutationResult = Apollo.MutationResult<SendCodeMutation>;
 export type SendCodeMutationOptions = Apollo.BaseMutationOptions<
   SendCodeMutation,
   SendCodeMutationVariables
 >;
+export const SendMessageDocument = gql`
+  mutation sendMessage($data: SendMessageInput!) {
+    sendMessage(data: $data) {
+      id
+      order_id
+      createdAt
+      message
+    }
+  }
+`;
+export type SendMessageMutationFn = Apollo.MutationFunction<
+  SendMessageMutation,
+  SendMessageMutationVariables
+>;
+
+/**
+ * __useSendMessageMutation__
+ *
+ * To run a mutation, you first call `useSendMessageMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSendMessageMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [sendMessageMutation, { data, loading, error }] = useSendMessageMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useSendMessageMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    SendMessageMutation,
+    SendMessageMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<SendMessageMutation, SendMessageMutationVariables>(
+    SendMessageDocument,
+    options,
+  );
+}
+export type SendMessageMutationHookResult = ReturnType<typeof useSendMessageMutation>;
+export type SendMessageMutationResult = Apollo.MutationResult<SendMessageMutation>;
+export type SendMessageMutationOptions = Apollo.BaseMutationOptions<
+  SendMessageMutation,
+  SendMessageMutationVariables
+>;
+export const UpdateUserDocument = gql`
+  mutation updateUser($data: UpdateUserInput!) {
+    updateUser(data: $data) {
+      id
+      phone_number
+      name
+    }
+  }
+`;
+export type UpdateUserMutationFn = Apollo.MutationFunction<
+  UpdateUserMutation,
+  UpdateUserMutationVariables
+>;
+
+/**
+ * __useUpdateUserMutation__
+ *
+ * To run a mutation, you first call `useUpdateUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateUserMutation, { data, loading, error }] = useUpdateUserMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useUpdateUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateUserMutation,
+    UpdateUserMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(
+    UpdateUserDocument,
+    options,
+  );
+}
+export type UpdateUserMutationHookResult = ReturnType<typeof useUpdateUserMutation>;
+export type UpdateUserMutationResult = Apollo.MutationResult<UpdateUserMutation>;
+export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<
+  UpdateUserMutation,
+  UpdateUserMutationVariables
+>;
 export const GetCurrentUserDocument = gql`
   query getCurrentUser {
     getCurrentUser {
       id
+      phone_number
+      name
+      image
+      notification
+      position
+      is_new
+      orders {
+        id
+        institution_id
+        status
+        rating
+        delivery
+        latitude
+        longitude
+      }
+      pay_methods {
+        method
+      }
+      institution {
+        id
+        name
+        work_from
+        work_to
+        address
+        free_delivery
+        dishes {
+          id
+          name
+          price
+        }
+        fillings {
+          id
+          name
+          price
+          weight
+        }
+      }
     }
   }
 `;
@@ -674,7 +882,6 @@ export function useGetCurrentUserQuery(
     options,
   );
 }
-
 export function useGetCurrentUserLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
     GetCurrentUserQuery,
@@ -687,7 +894,6 @@ export function useGetCurrentUserLazyQuery(
     options,
   );
 }
-
 export type GetCurrentUserQueryHookResult = ReturnType<typeof useGetCurrentUserQuery>;
 export type GetCurrentUserLazyQueryHookResult = ReturnType<
   typeof useGetCurrentUserLazyQuery
@@ -726,14 +932,54 @@ export function useLoginQuery(
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<LoginQuery, LoginQueryVariables>(LoginDocument, options);
 }
-
 export function useLoginLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<LoginQuery, LoginQueryVariables>,
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<LoginQuery, LoginQueryVariables>(LoginDocument, options);
 }
-
 export type LoginQueryHookResult = ReturnType<typeof useLoginQuery>;
 export type LoginLazyQueryHookResult = ReturnType<typeof useLoginLazyQuery>;
 export type LoginQueryResult = Apollo.QueryResult<LoginQuery, LoginQueryVariables>;
+export const MessageSentDocument = gql`
+  subscription messageSent {
+    messageSent {
+      id
+      message
+      order_id
+    }
+  }
+`;
+
+/**
+ * __useMessageSentSubscription__
+ *
+ * To run a query within a React component, call `useMessageSentSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useMessageSentSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMessageSentSubscription({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useMessageSentSubscription(
+  baseOptions?: Apollo.SubscriptionHookOptions<
+    MessageSentSubscription,
+    MessageSentSubscriptionVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSubscription<
+    MessageSentSubscription,
+    MessageSentSubscriptionVariables
+  >(MessageSentDocument, options);
+}
+export type MessageSentSubscriptionHookResult = ReturnType<
+  typeof useMessageSentSubscription
+>;
+export type MessageSentSubscriptionResult =
+  Apollo.SubscriptionResult<MessageSentSubscription>;

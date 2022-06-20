@@ -354,7 +354,7 @@
       {
         "kind": "INPUT_OBJECT",
         "name": "CreateExtraAddressInput",
-        "description": "Input for add extra address",
+        "description": "input for add extra address",
         "fields": null,
         "inputFields": [
           {
@@ -4202,7 +4202,7 @@
       {
         "kind": "INPUT_OBJECT",
         "name": "UpdateExtraAddressInput",
-        "description": "Input for add extra address",
+        "description": "input for add extra address",
         "fields": null,
         "inputFields": [
           {
@@ -4416,7 +4416,7 @@
       {
         "kind": "INPUT_OBJECT",
         "name": "UpdateUserInput",
-        "description": "Input for update user",
+        "description": "input for update user",
         "fields": null,
         "inputFields": [
           {

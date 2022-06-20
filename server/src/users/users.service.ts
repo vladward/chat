@@ -158,9 +158,10 @@ export class UsersService {
     );
 
     // todo: Убрать потом
-    console.log(code);
 
     user.code = bcrypt.hashSync(code, salt);
+
+    console.log(code);
 
     await user.save();
 

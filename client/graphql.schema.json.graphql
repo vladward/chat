@@ -274,7 +274,7 @@ input CreateDishInput {
     tag_ids: [Int!]!
 }
 
-"Input for add extra address"
+"input for add extra address"
 input CreateExtraAddressInput {
     latitude: String!
     longitude: String!
@@ -375,7 +375,7 @@ input UpdateDishInput {
     tag_ids: [Int!] = []
 }
 
-"Input for add extra address"
+"input for add extra address"
 input UpdateExtraAddressInput {
     id: ID!
     latitude: String!
@@ -396,7 +396,7 @@ input UpdateInstitutionsInput {
     work_to: String
 }
 
-"Input for update user"
+"input for update user"
 input UpdateUserInput {
     image: Upload
     name: String
