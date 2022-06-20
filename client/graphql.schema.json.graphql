@@ -1,0 +1,406 @@
+# This file was generated based on "graphql.schema.json". Do not edit manually.
+
+schema {
+    query: Query
+    mutation: Mutation
+    subscription: Subscription
+}
+
+type CommentsObject {
+    avarage_rating: Int!
+    count: Int!
+    rows: [DishRating!]!
+}
+
+type Dish {
+    composition: String!
+    dish_orders: [DishOrder!]!
+    fillings: [Filling!]!
+    id: ID!
+    image: String!
+    institution: Institution!
+    name: String!
+    price: Float!
+    stock_price: Float
+    stock_time: DateTime
+    tags: [Tag!]!
+}
+
+type DishOrder {
+    fillings: [Filling!]!
+    id: ID!
+    price: Int!
+    quality: Int!
+}
+
+type DishRating {
+    id: ID!
+    message: String!
+    stars: Int!
+    user: User!
+}
+
+type DishesObject {
+    count: Int!
+    rows: [Dish!]!
+}
+
+type Filling {
+    dishes: [Dish!]!
+    id: ID!
+    image: String!
+    name: String!
+    price: Float!
+    weight: Float!
+}
+
+type Institution {
+    address: String!
+    dishes: [Dish!]
+    extra_addresses: [InstitutionExtraAddress!]
+    fillings: [Filling!]!
+    free_delivery: Int!
+    id: ID!
+    image: String!
+    name: String!
+    pay_methods: [InstitutionPayMethod!]
+    shipping_cost: Int!
+    tags: [Tag!]!
+    work_days: [WorkDay!]
+    work_from: String!
+    work_to: String!
+}
+
+type InstitutionExtraAddress {
+    id: ID!
+    latitude: String!
+    longitude: String!
+}
+
+type InstitutionOrder {
+    delivery: Int!
+    dish_orders: [DishOrder!]!
+    id: ID!
+    institution_id: ID!
+    latitude: String!
+    longitude: String!
+    messages: Message!
+    pay_method: InstitutionOrderPayMethods!
+    rating: Int!
+    status: Status!
+    user: User!
+}
+
+type InstitutionPayMethod {
+    method: PayMethod!
+}
+
+type InstitutionsObject {
+    count: Int!
+    rows: [Institution!]!
+}
+
+type Message {
+    createdAt: DateTime!
+    id: ID!
+    message: String!
+    order_id: ID!
+    user: User!
+}
+
+type Mutation {
+    addDishComment(data: AddDishCommentsInput!): DishRating!
+    addDishToFavorite(dish_id: ID!): Boolean!
+    addInstitutionElevation(data: AddInstitutionElevation!): Boolean!
+    addInstitutionExtraAddress(data: CreateExtraAddressInput!): InstitutionExtraAddress!
+    addInstitutionToFavorite(institution_id: ID!): Boolean!
+    addUserExtraAddress(data: CreateExtraAddressInput!): UserExtraAddress!
+    changeOrderStatus(data: ChangeOrderStatusInput!): Boolean!
+    createDish(data: CreateDishInput!): Dish!
+    createInstitution(data: CreateInstitutionsInput!): Institution!
+    createInstitutionFillings(data: CreateFillingInput!): Filling!
+    createOrder(data: CreateOrderInput!): Boolean!
+    createTag(data: CreateTagInput!): Tag!
+    removeDish(id: ID!): Dish!
+    removeDishFromFavorite(dish_id: ID!): Boolean!
+    removeInstitution: Boolean!
+    removeInstitutionExtraAddress(id: ID!): InstitutionExtraAddress!
+    removeInstitutionFilling(id: ID!): Boolean!
+    removeInstitutionFromFavorite(institution_id: ID!): Boolean!
+    removeUserExtraAddress(id: ID!): UserExtraAddress!
+    sendCode(data: SendCodeInput!): Boolean!
+    sendMessage(data: SendMessageInput!): Message!
+    updateDish(data: UpdateDishInput!): Dish!
+    updateInstitution(data: UpdateInstitutionsInput!): Institution!
+    updateInstitutionExtraAddress(data: UpdateExtraAddressInput!): InstitutionExtraAddress!
+    updateUser(data: UpdateUserInput!): User!
+    updateUserExtraAddress(data: UpdateExtraAddressInput!): UserExtraAddress!
+}
+
+type Query {
+    getCurrentUser: User!
+    getDish(id: ID!): Dish!
+    getDishComments(data: GetDishCommentsInput!): CommentsObject!
+    getDishes(data: GetDishesInput!): DishesObject!
+    getFavoriteDishes: [Dish!]!
+    getFavoriteInstitutions: [Institution!]!
+    getInstitution: Institution!
+    getInstitutionById(id: ID!): Institution!
+    getInstitutionFillings(data: GetFillingsInput!): [Filling!]!
+    getInstitutions(data: GetInstitutionsInput!): InstitutionsObject!
+    getOrderDialog(id: ID!): [Message!]
+    getOrders(data: GetOrdersInput!): [InstitutionOrder!]!
+    getTags: [Tag!]!
+    login(data: LoginInput!): Token!
+}
+
+type Subscription {
+    messageSent: Message!
+}
+
+type Tag {
+    id: ID!
+    name: String!
+}
+
+type Token {
+    access_token: String!
+}
+
+type User {
+    extra_addresses: [UserExtraAddress!]
+    id: ID!
+    image: String!
+    institution: Institution!
+    is_new: Boolean!
+    name: String!
+    notification: Boolean!
+    orders: [InstitutionOrder!]!
+    pay_methods: [UserPay!]!
+    phone_number: Int!
+    position: Boolean!
+}
+
+type UserExtraAddress {
+    id: ID!
+    latitude: String!
+    longitude: String!
+}
+
+type UserPay {
+    method: UserPayMethod!
+}
+
+type WorkDay {
+    day: Day!
+}
+
+"work day"
+enum Day {
+    FRIDAY
+    MONDAY
+    SATURDAY
+    SUNDAY
+    THURSDAY
+    TUESDAY
+    WEDNESDAY
+}
+
+enum InstitutionOrderPayMethods {
+    CACHE
+    CARD
+    ONLINE
+}
+
+"pay methods"
+enum PayMethod {
+    ALL
+    CACHE
+    CARD
+    ONLINE
+}
+
+enum Status {
+    ACCEPTED
+    CANCELED
+    COMPLETED
+    COOKING
+    IN_ROAD
+    NEW
+}
+
+enum StockTime {
+    ONE_DAY
+    ONE_MOUTH
+    ONE_WEEK
+    TWO_WEEKS
+}
+
+"pay methods"
+enum UserPayMethod {
+    CACHE
+    CARD
+    ONLINE
+}
+
+"A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format."
+scalar DateTime
+
+"The `Upload` scalar type represents a file upload."
+scalar Upload
+
+input AddDishCommentsInput {
+    dish_id: ID!
+    message: String!
+    stars: Int!
+}
+
+input AddInstitutionElevation {
+    evaluation: Int!
+    institution_id: Int!
+}
+
+input ChangeOrderStatusInput {
+    order_id: ID!
+    status: Status
+}
+
+input CreateDishInput {
+    composition: String!
+    filling_ids: [Int!]!
+    image: Upload!
+    name: String!
+    price: Float!
+    tag_ids: [Int!]!
+}
+
+"input for add extra address"
+input CreateExtraAddressInput {
+    latitude: String!
+    longitude: String!
+}
+
+input CreateFillingInput {
+    image: Upload!
+    name: String!
+    price: Float!
+    weight: Float!
+}
+
+input CreateInstitutionsInput {
+    address: String!
+    free_delivery: Float!
+    image: Upload!
+    name: String!
+    pay_methods: [PayMethod!]!
+    shipping_cost: Float!
+    "Tags ids"
+    tags: [ID!]!
+    work_days: [Day!]!
+    work_from: String!
+    work_to: String!
+}
+
+input CreateOrderInput {
+    latitude: String!
+    longitude: String!
+    orders: [Order!]!
+    pay_method: InstitutionOrderPayMethods!
+}
+
+input CreateTagInput {
+    name: String!
+}
+
+input GetDishCommentsInput {
+    dish_id: ID!
+    limit: Int = 10
+    offset: Int = 0
+}
+
+input GetDishesInput {
+    limit: Int = 10
+    offset: Int = 0
+    search: String = ""
+}
+
+input GetFillingsInput {
+    id: ID!
+    limit: Float = 10.0
+    offset: Float = 0.0
+}
+
+input GetInstitutionsInput {
+    limit: Int = 10
+    offset: Int = 0
+    search: String = ""
+}
+
+input GetOrdersInput {
+    limit: Int = 10
+    offset: Int = 0
+}
+
+input LoginInput {
+    code: Float!
+    is_partner: Boolean!
+    phone: String!
+}
+
+input Order {
+    dish_id: Int!
+    filling_ids: [Int!]!
+    quality: Int!
+}
+
+input SendCodeInput {
+    is_partner: Boolean = false
+    phone: String!
+}
+
+input SendMessageInput {
+    message: String!
+    order_id: ID!
+}
+
+input UpdateDishInput {
+    composition: String
+    filling_ids: [Int!] = []
+    id: ID!
+    image: Upload
+    name: String
+    price: Float
+    stock_price: Float
+    stock_time: StockTime
+    tag_ids: [Int!] = []
+}
+
+"input for add extra address"
+input UpdateExtraAddressInput {
+    id: ID!
+    latitude: String!
+    longitude: String!
+}
+
+input UpdateInstitutionsInput {
+    address: String
+    free_delivery: Float
+    image: Upload
+    name: String
+    pay_methods: [PayMethod!]
+    shipping_cost: Float
+    "Tags ids"
+    tags: [Int!]
+    work_days: [Day!]
+    work_from: String
+    work_to: String
+}
+
+"input for update user"
+input UpdateUserInput {
+    image: Upload
+    name: String
+    notification: Boolean
+    pay_methods: [UserPayMethod!]
+    position: Boolean
+}

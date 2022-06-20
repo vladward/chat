@@ -3,7 +3,7 @@ import { UserPayMethod } from '../../models';
 import { GraphQLUpload, FileUpload } from 'graphql-upload';
 
 @InputType({
-  description: 'Input for update user',
+  description: 'input for update user',
 })
 export class UpdateUserInput {
   id: number;

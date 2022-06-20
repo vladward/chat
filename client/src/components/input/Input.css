@@ -1,0 +1,56 @@
+  .appInput__wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid darkgray;
+    padding: 10px;
+  }
+
+  .appInput__wrapper:last-child {
+    border-bottom: none;
+  }
+
+  .appInput__wrapper--error {
+    border-bottom: 1px solid palevioletred;
+  }
+
+  .appInput__label {
+    width: 100%;
+    text-align: left;
+    padding: 0 8px 0 0;
+    color: black;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 16px;
+    font-weight: 300;
+    font-style: normal;
+  }
+
+  .appInput__label:hover {
+    cursor: pointer;
+  }
+
+  input {
+    width: 100%;
+    max-width: 350px;
+    box-sizing: border-box;
+    padding: 3px 0;
+    outline: none;
+    border: none;
+    color: black;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 300;
+    font-style: normal;
+    border-bottom: 1px solid gray;
+  }
+
+  .appInput__text--error {
+    width: 100%;
+    position: absolute;
+    top: 100%;
+    font-size: 12px;
+    padding: 1px 0 0 4px;
+    color: red;
+    pointer-events: none;
+  }

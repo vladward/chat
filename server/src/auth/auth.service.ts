@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
-import { User } from '../users/models/user.model';
+import { User } from '../users/models';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 
@@ -13,7 +13,6 @@ export class AuthService {
 
   async validateUser(phone: string, code: number, is_partner: boolean) {
     const user = await this.usersService.findUserByPhone(phone, is_partner);
-    console.log(user);
     if (!user || !user.code) {
       throw new BadRequestException('Invalid code');
     }
